@@ -1,0 +1,18 @@
+{
+  "id": "rwa-timedcommands",
+  "repository": "brainfoolong/rwa-timedcommands",
+  "version": "0.9.0",
+  "compatibleGames": "all",
+  "compatibleSizes": [
+    "large"
+  ],
+  "options": {
+
+  },
+  "locale": {
+    "en": {
+      "name": "Timed Commands",
+      "description": "Schedule/periodically execute commands for rcon web admin. For example, send messages in chat periodically."
+    }
+  }
+}
