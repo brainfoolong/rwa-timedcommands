@@ -55,7 +55,7 @@
       "type.hourly.hours.title": "Stunden",
       "type.hourly.hours.info": "Gib an, in welchen Stunden eines Tages das Script ausgeführt werden soll",
       "type.weekdays.title": "Wochentage",
-      "type.weekdays.info": "Die Wochentage and dem das Script ausgeführt werden soll",
+      "type.weekdays.info": "Die Wochentage an dem das Script ausgeführt werden soll",
       "weekday.0" : "Sonntag",
       "weekday.1" : "Montag",
       "weekday.2" : "Dienstag",
