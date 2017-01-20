@@ -80,6 +80,7 @@ Widget.register("rwa-timedcommands", function (widget) {
                 var name = e.closest("tr").attr("data-name");
                 if (typeof commands[name] != "undefined") {
                     populateForm(form.find("form"), commands[name]);
+                    widget.content.find(".selectpicker").selectpicker("refresh");
                 }
             });
         }).on("click", ".delete", function () {
