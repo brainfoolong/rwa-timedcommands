@@ -52,8 +52,10 @@ widget.onFrontendMessage = function (server, user, action, messageData, callback
             callback(this, commands);
             break;
         case "save":
-            commands[messageData.name] = messageData;
-            widget.storage.set(server, "commands", commands);
+            if (messageData && messageData.name) {
+                commands[messageData.name] = messageData;
+                widget.storage.set(server, "commands", commands);
+            }
             callback(this, null);
             break;
     }

@@ -61,10 +61,12 @@ Widget.register("rwa-timedcommands", function (widget) {
                     if ($(this).closest(".dropdown-toggle, .dropdown-menu").length) return true;
                     data[$(this).attr("name")] = $(this).val();
                 });
-                widget.backend("save", data, function (messageData) {
-                    note(widget.t("saved"), "success");
-                    updateScripts();
-                });
+                if (data.name && data.name.length) {
+                    widget.backend("save", data, function (messageData) {
+                        note(widget.t("saved"), "success");
+                        updateScripts();
+                    });
+                }
             } else {
                 // on validation error trigger a fake submit button to enable validation UI popup
                 $(this).after('<input type="submit">');
