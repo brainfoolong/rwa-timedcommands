@@ -5,19 +5,31 @@ var Widget = require(__dirname + "/../../../src/widget");
 var widget = new Widget();
 
 /**
- * On rcon server has successfully connected and authenticated
+ * On widget update cycle - Fired every 30 seconds for each server
  * @param {RconServer} server
  */
-widget.onServerConnected = function (server) {
-
-};
-
-/**
- * Fired when widget is added to a server dashboard
- * @param {RconServer} server
- */
-widget.onWidgetAdded = function (server) {
-
+widget.onUpdate = function (server) {
+    var commands = widget.storage.get(server, "commands") || {};
+    var now = Math.floor(new Date().getTime() / 1000 / 60);
+    var thisDay = new Date().getDay();
+    var thisHour = new Date().getHours();
+    var thisMinute = new Date().getMinutes();
+    for (var commandsIndex in commands) {
+        if (commands.hasOwnProperty(commandsIndex)) {
+            var row = commands[commandsIndex];
+            if (row.active !== "yes") continue;
+            if (!row.minutes.length || !row.hours.length || !row.weekdays.length) {
+                continue;
+            }
+            var lastExecution = row.lastExecution || 0;
+            if (lastExecution < now && row.minutes.indexOf(thisMinute.toString()) > -1 && row.hours.indexOf(thisHour.toString()) > -1 && row.weekdays.indexOf(thisDay.toString()) > -1) {
+                row.lastExecution = now;
+                commands[commandsIndex] = row;
+                server.cmd(row.command);
+                widget.storage.set(server, "commands", commands);
+            }
+        }
+    }
 };
 
 /**
@@ -29,16 +41,22 @@ widget.onWidgetAdded = function (server) {
  * @param {function} callback Pass an object as message data response for the frontend
  */
 widget.onFrontendMessage = function (server, user, action, messageData, callback) {
-
-};
-
-/**
- * On receive a server message
- * @param {RconServer} server
- * @param {RconMessage} message
- */
-widget.onServerMessage = function (server, message) {
-
+    var commands = widget.storage.get(server, "commands") || {};
+    switch (action) {
+        case "delete":
+            delete commands[messageData];
+            widget.storage.set(server, "commands", commands);
+            callback(this, null);
+            break;
+        case "get":
+            callback(this, commands);
+            break;
+        case "save":
+            commands[messageData.name] = messageData;
+            widget.storage.set(server, "commands", commands);
+            callback(this, null);
+            break;
+    }
 };
 
 module.exports = widget;
