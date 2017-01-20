@@ -1,3 +1,6 @@
+# NOT WORKING
+The widget does not work at the moment.
+
 # Timedcommands widget
 
 Schedule/periodically execute commands for rcon web admin. For example, send messages in chat periodically.
