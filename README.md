@@ -1,3 +1,6 @@
+### Project discontinued
+Because of lack of time, i must discontinue this project. It will stay online, it will probably work out of the box. Maybe someone can take over development for this project?! Feel free to fork it.
+
 # Timedcommands widget
 
 Schedule commands for [RCON Web Admin](https://github.com/brainfoolong/rcon-web-admin).
